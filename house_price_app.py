@@ -33,17 +33,19 @@ age = st.number_input("Age of building (years)", min_value=0, max_value=100, val
 
 if st.button("Predict Price"):
     price = predict_price(area, rooms, age)
-    st.success(f"💰 Estimated Price: {int(price):,} DH")
+    st.success(f"💰 Estimated Price: {int(price):,} $")  # <-- Dollar $
 
 # ===== Optional: Visual Graph =====
 st.write("### Graph: Area vs Price")
 plt.scatter(df['Area'], df['Price'], color='blue', label='Actual Price')
+
 area_range = np.linspace(df['Area'].min(), df['Area'].max(), 100)
 rooms_avg = df['Rooms'].mean()
 age_avg = df['Age'].mean()
 predicted_prices = [predict_price(a, rooms_avg, age_avg) for a in area_range]
+
 plt.plot(area_range, predicted_prices, color='red', label='Predicted Price')
 plt.xlabel('Area (m²)')
-plt.ylabel('Price (DH)')
+plt.ylabel('Price ($)')  # <-- Dollar $ on Y-axis
 plt.legend()
 st.pyplot(plt)
